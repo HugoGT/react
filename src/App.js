@@ -11,7 +11,7 @@ const todos = [
     completed: false
   },
   { text: 'Tomar curso de Intro a React',
-    completed: false
+    completed: true
   },
   { text: 'Tipear en MonkeyType',
     completed: false
@@ -27,7 +27,11 @@ function App() {
 
       <TodoList>
         { todos.map((todo) => (
-          <TodoItem key={todo.text} text={todo.text} />
+          <TodoItem
+            key={todo.text}
+            text={todo.text}
+            completed={todo.completed}
+          />
           )) }
       </TodoList>
 

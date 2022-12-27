@@ -1,7 +1,9 @@
-function TodoCounter(){
-    return(
-        <h2> Has complentado 2 de 3 ToDos</h2>
-    )
+import './TodoCounter.css';
+
+function TodoCounter() {
+  return (
+    <h2 className="TodoCounter">Has completado 2 de 3 TODOs</h2>
+  );
 }
 
-export {TodoCounter};
+export { TodoCounter };
