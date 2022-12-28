@@ -5,27 +5,40 @@ import { TodoSearch } from "./components/TodoSearch";
 import { TodoCounter } from "./components/TodoCounter";
 import { CreateTodoButton } from "./components/CreateTodoButton";
 
-function App() {
-  const localStorageTodos = localStorage.getItem("TODOS_V1");
-  let parsedTodos;
+function useLocalStorage(itemName) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (localStorageTodos === '[]') {
-    const firstTodo = {
-      text: 'Crear una tarea',
+  if (localStorageItem === "[]" || !localStorageItem) {
+    const firstItem = {
+      text: "Crear una tarea",
       completed: false
-    }
+    };
 
-    parsedTodos = [firstTodo]
+    parsedItem = [firstItem];
 
-    localStorage.setItem(
-      'TODOS_V1',
-      JSON.stringify(parsedTodos)
-    )
+    localStorage.setItem(itemName, JSON.stringify(parsedItem));
   } else {
-    parsedTodos = JSON.parse(localStorageTodos)
+    parsedItem = JSON.parse(localStorageItem);
   }
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [item, setItem] = React.useState(parsedItem);
+
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+  };
+
+  return [
+    item,
+    saveItem
+  ];
+}
+
+function App() {
+  const [todos,saveTodos] = useLocalStorage('TODOS_V1');
+
   const [searchValue, setSearchValue] = React.useState("");
 
   const totalTodos = todos.length;
@@ -42,12 +55,6 @@ function App() {
       return todoText.includes(searchText);
     });
   }
-
-  const saveTodos = (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1', stringifiedTodos);
-    setTodos(newTodos);
-  };
 
   const toggleCompleteTodo = (text) => {
     const newTodos = [...todos];
