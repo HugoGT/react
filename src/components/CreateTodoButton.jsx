@@ -2,7 +2,7 @@ import './css/CreateTodoButton.css';
 
 function CreateTodoButton(props) {
   const clickButton = () => {
-    alert('Aquí va tu modal')
+    props.setOpenModal(prevState => !prevState);
   }
   return (
     <button

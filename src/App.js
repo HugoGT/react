@@ -2,13 +2,21 @@ import React from "react";
 import { CreateTodoButton } from "./components/CreateTodoButton";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoItem } from "./components/TodoItem";
+import { Modal } from "./components/Modal";
 import { TodoList } from "./components/TodoList";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoContext } from "./components/TodoContext";
 
 function App() {
-  const { error, loading, searchedTodos, toggleCompleteTodo, deleteTodo } =
-    React.useContext(TodoContext);
+  const {
+    error,
+    loading,
+    searchedTodos,
+    toggleCompleteTodo,
+    deleteTodo,
+    openModal,
+    setOpenModal,
+  } = React.useContext(TodoContext);
 
   return (
     <React.Fragment>
@@ -34,7 +42,15 @@ function App() {
         ))}
       </TodoList>
 
-      <CreateTodoButton />
+      {openModal && (
+        <Modal>
+          <p>Tptptptptpt</p>
+        </Modal>
+      )}
+
+      <CreateTodoButton
+        setOpenModal={setOpenModal}
+      />
     </React.Fragment>
   );
 }
