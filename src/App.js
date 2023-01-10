@@ -6,8 +6,8 @@ import { Modal } from "./components/Modal";
 import { TodoForm } from "./components/TodoForm";
 import { TodoList } from "./components/TodoList";
 import { TodoSearch } from "./components/TodoSearch";
-import { TodoContext } from "./components/TodoContext";
 import { TodoHeader } from "./components/TodoHeader";
+import { useTodos } from "./components/TodoContext"
 
 function App() {
   const {
@@ -20,9 +20,10 @@ function App() {
     searchedTodos,
     toggleCompleteTodo,
     deleteTodo,
+    addTodo,
     openModal,
     setOpenModal,
-  } = React.useContext(TodoContext);
+  } = useTodos();
 
   return (
     <React.Fragment>
@@ -52,7 +53,10 @@ function App() {
 
       {openModal && (
         <Modal>
-          <TodoForm />
+          <TodoForm
+            addTodo={addTodo}
+            setOpenModal={setOpenModal}
+          />
         </Modal>
       )}
 
