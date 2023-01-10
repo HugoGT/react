@@ -7,11 +7,16 @@ import { TodoForm } from "./components/TodoForm";
 import { TodoList } from "./components/TodoList";
 import { TodoSearch } from "./components/TodoSearch";
 import { TodoContext } from "./components/TodoContext";
+import { TodoHeader } from "./components/TodoHeader";
 
 function App() {
   const {
-    error,
     loading,
+    error,
+    totalTodos,
+    completedTodos,
+    searchValue,
+    setSearchValue,
     searchedTodos,
     toggleCompleteTodo,
     deleteTodo,
@@ -21,8 +26,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <TodoCounter />
-      <TodoSearch />
+      <TodoHeader>
+        <TodoCounter totalTodos={totalTodos} completedTodos={completedTodos} />
+        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
+      </TodoHeader>
 
       <TodoList>
         {error && <p>Desepérate, hubo un error</p>}
@@ -49,9 +56,7 @@ function App() {
         </Modal>
       )}
 
-      <CreateTodoButton
-        setOpenModal={setOpenModal}
-      />
+      <CreateTodoButton setOpenModal={setOpenModal} />
     </React.Fragment>
   );
 }
